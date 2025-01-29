@@ -6,31 +6,43 @@
 void solveQuadratic(double a, double b, double c);
 bool validateInput(double a);
 void graphQuadratic(double a, double b, double c);
+void displayMenu();
+void stepByStepSolution(double a, double b, double c);
+void plotGraphToFile(double a, double b, double c);
 
 int main(void) {
     double a, b, c;
     char choice;
 
-    do {
+    while (1) {
+        displayMenu();
+        printf("Enter your choice: ");
+        scanf(" %c", &choice);
+        if (choice == '4') {
+            printf("Exiting program.\n");
+            break;
+        }
+
         printf("Enter the coefficients a, b, and c: ");
         while (scanf("%lf%lf%lf", &a, &b, &c) != 3 || !validateInput(a)) {
             printf("Invalid input! 'a' cannot be zero. Enter valid coefficients: ");
-            while (getchar() != '\n');
+            while (getchar() != '\n'); 
         }
 
         solveQuadratic(a, b, c);
-
-        printf("\nDo you want to graph the quadratic function? (y/n): ");
-        scanf(" %c", &choice);
-        if (choice == 'y' || choice == 'Y') {
-            graphQuadratic(a, b, c);
-        }
-
-        printf("\nDo you want to solve another equation? (y/n): ");
-        scanf(" %c", &choice);
-    } while (choice == 'y' || choice == 'Y');
-
+        stepByStepSolution(a, b, c);
+        plotGraphToFile(a, b, c);
+    }
     return 0;
+}
+
+
+void displayMenu() {
+    printf("\n--- Quadratic Equation Solver ---\n");
+    printf("1. Solve a Quadratic Equation\n");
+    printf("2. Display Step-by-Step Solution\n");
+    printf("3. Graph the Quadratic Function\n");
+    printf("4. Exit\n");
 }
 
 void solveQuadratic(double a, double b, double c) {
@@ -58,10 +70,31 @@ bool validateInput(double a) {
     return a != 0;
 }
 
-void graphQuadratic(double a, double b, double c) {
-    printf("\nGraph of the quadratic function y = %.2lfx^2 + %.2lfx + %.2lf\n", a, b, c);
+void stepByStepSolution(double a, double b, double c) {
+    printf("\n--- Step-by-Step Solution ---\n");
+    printf("Quadratic equation: %.2lfx^2 + %.2lfx + %.2lf = 0\n", a, b, c);
+    printf("Step 1: Compute the discriminant\n");
+    double discriminant = b * b - 4 * a * c;
+    printf("Discriminant = (%.2lf^2) - 4 * %.2lf * %.2lf = %.2lf\n", b, a, c, discriminant);
+    printf("Step 2: Compute the roots\n");
+    if (discriminant >= 0) {
+        printf("Root formula: (-b ± sqrt(discriminant)) / (2a)\n");
+    } else {
+        printf("Root formula: (-b ± sqrt(|discriminant|) i) / (2a)\n");
+    }
+}
+
+void plotGraphToFile(double a, double b, double c) {
+    FILE *fp = fopen("quadratic_graph.csv", "w");
+    if (!fp) {
+        printf("Error creating graph file!\n");
+        return;
+    }
+    fprintf(fp, "x,y\n");
     for (int x = -10; x <= 10; x++) {
         double y = a * x * x + b * x + c;
-        printf("x = %2d, y = %.2lf\n", x, y);
+        fprintf(fp, "%d,%.2lf\n", x, y);
     }
+    fclose(fp);
+    printf("\nGraph data saved to 'quadratic_graph.csv'. You can plot it using Excel or Python.\n");
 }
