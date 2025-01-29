@@ -6,6 +6,13 @@ This program solves quadratic equations, determines the nature of the roots, and
 - **Input Validation**: Ensures the coefficient `a` is nonzero.
 - **Graphical Representation**: Displays function values for a range of x-values.
 
+## How It Works
+1. The user inputs coefficients `a`, `b`, and `c`.
+2. The program validates the input to ensure `a` is nonzero.
+3. It calculates the discriminant to determine the nature of the roots.
+4. The roots are displayed as real or complex numbers.
+5. The user has the option to visualize the quadratic function over a set range.
+
 ## Example Usage
 
 ```
