@@ -1,6 +1,6 @@
 # Quadratic Equation Solver
 
-This program solves quadratic equations, determines the nature of the roots, and provides an option to visualize the function. It ensures valid input and calculates real or complex roots based on the discriminant.
+This program solves quadratic equations, determines the nature of the roots, and provides an option to visualize the function. It ensures valid input and calculates both real or complex roots based on the discriminant.
 
 - **Solves Quadratic Equations**: Computes real or complex roots based on the discriminant.
 - **Input Validation**: Ensures the coefficient `a` is nonzero.
